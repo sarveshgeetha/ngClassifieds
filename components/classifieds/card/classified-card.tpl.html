@@ -1,0 +1,33 @@
+<md-card class="classified" ng-repeat="classified in classifieds | filter : classifiedsFilter | filter : category" flex="30">
+		 <md-card-title-media>
+	            <div class="md-media-sm card-media">
+	            	<img ng-src="{{classified.image}}" alt="">
+	            </div>
+	     </md-card-title-media>
+		 <md-card-content>
+				<div class="classified-info" ng-show="!showContact">
+					<h2 class="md-display-1">{{classified.title}}</h2>
+					<h2>{{classified.posted | date:'longDate'}}</h2>
+					<h3>{{classified.price | currency}}</h3>
+					<p>{{classified.description}}</p>
+				</div>
+				<div class="classified-contact" ng-show="showContact">
+					<p><md-icon class="mdi mdi-account"></md-icon>{{classified.contact.name}}</p>
+					<p><md-icon class="mdi mdi-phone"></md-icon>{{classified.contact.phone}}</p>
+					<p><md-icon class="mdi mdi-email"></md-icon>{{classified.contact.email}}</p>
+				</div>
+				<div layout="row">
+	   				<button class="md-button" ng-show="!showContact" ng-click="showContact = true">Contact</button>
+	   				<button class="md-button" ng-show="showContact" ng-click="showContact = false">Details</button>
+	   				<button class="md-button" ng-show="!showAdmin" ng-click="showAdmin = true">Admin</button>
+	   				<button class="md-button" ng-show="showAdmin" ng-click="showAdmin = false">Close</button>
+				</div>
+				<div class="classified-admin" ng-if="showAdmin">
+					<h3>Admin</h3>
+					<div layout="row">
+					<button ng-click="vm.editClassified(classified)" class="md-button md-primary">Edit</button>
+					<button ng-click="vm.deleteClassified($event , classified)" class="md-button md-warn">Delete</button>
+					</div>
+				</div>
+		 </md-card-content>
+</md-card>
